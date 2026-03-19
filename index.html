@@ -12,10 +12,12 @@
         :root {
             --pink-primary: #ff85a2;
             --pink-secondary: #ffafbd;
+            --magic-gold: #ffd700;
             --magic-star: #fff176;
             --mole-brown: #a67c52;
             --hole-color: #d1a58c;
             --bg-color: #fff0f3;
+            --ruby-red: #ff4081;
         }
 
         body, html {
@@ -24,7 +26,6 @@
             overflow: hidden;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: var(--bg-color);
-            /* 隱藏預設游標，因為我們要用魔法棒 */
             cursor: none;
             user-select: none;
         }
@@ -35,96 +36,127 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
+            background: radial-gradient(circle, #fff0f3 0%, #ffe4e9 100%);
         }
 
-        /* 魔法棒游標 */
+        /* 美少女戰士風格月亮權杖 */
         .magic-wand {
             position: fixed;
             pointer-events: none;
             z-index: 1000;
-            width: 40px;
-            height: 40px;
-            transform: translate(-20%, -20%);
-            transition: transform 0.05s ease-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transform-origin: center;
         }
 
-        .wand-star {
-            width: 24px;
-            height: 24px;
-            background: var(--magic-star);
-            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-            box-shadow: 0 0 10px var(--magic-star);
-            animation: pulse 1s infinite;
+        .wand-moon {
+            width: 50px;
+            height: 50px;
+            background: var(--magic-gold);
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+        }
+
+        /* 挖掉中間變成新月 */
+        .wand-moon::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 15px;
+            width: 45px;
+            height: 45px;
+            background: var(--bg-color); /* 隨背景色變化，製造新月感 */
+            border-radius: 50%;
+        }
+
+        /* 權杖中心的紅寶石 */
+        .wand-gem {
+            width: 14px;
+            height: 14px;
+            background: var(--ruby-red);
+            border-radius: 50%;
+            position: absolute;
+            bottom: 5px;
+            left: 18px;
+            z-index: 2;
+            box-shadow: 0 0 10px var(--ruby-red);
         }
 
         .wand-handle {
-            width: 6px;
-            height: 30px;
-            background: linear-gradient(to bottom, var(--pink-primary), #fff);
-            margin-left: 9px;
-            margin-top: -5px;
-            border-radius: 3px;
-            transform: rotate(-15deg);
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); filter: brightness(1); }
-            50% { transform: scale(1.2); filter: brightness(1.2); }
-            100% { transform: scale(1); filter: brightness(1); }
+            width: 10px;
+            height: 60px;
+            background: linear-gradient(to bottom, #ff85a2, #ffd1dc);
+            border-radius: 5px;
+            margin-top: -10px;
+            border: 2px solid #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
 
         .game-header {
             text-align: center;
             margin-bottom: 20px;
             color: var(--pink-primary);
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
         }
 
         .score-board {
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: bold;
-            text-shadow: 2px 2px #fff;
-        }
-
-        .timer {
-            font-size: 1.2rem;
-            margin-top: 5px;
+            color: #ff4081;
+            text-shadow: 2px 2px 0px #fff;
         }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(3, 120px);
-            grid-gap: 20px;
-            background: #fff;
-            padding: 30px;
-            border-radius: 40px;
-            box-shadow: 0 10px 30px rgba(255, 133, 162, 0.2);
-            border: 5px border-style: dotted; border-color: var(--pink-secondary);
+            grid-template-columns: repeat(3, 130px);
+            grid-gap: 25px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 40px;
+            border-radius: 50px;
+            box-shadow: 0 15px 40px rgba(255, 133, 162, 0.3);
+            border: 6px dashed var(--pink-secondary);
         }
 
         .hole {
-            width: 120px;
-            height: 90px;
+            width: 130px;
+            height: 100px;
             background: var(--hole-color);
             border-radius: 50%;
             position: relative;
             overflow: hidden;
-            box-shadow: inset 0 10px 10px rgba(0,0,0,0.3);
+            box-shadow: inset 0 12px 15px rgba(0,0,0,0.4);
         }
 
-        /* 可愛地鼠 */
+        /* 可愛地鼠 + 星星髮夾 */
         .mole {
-            width: 90px;
-            height: 100px;
+            width: 100px;
+            height: 110px;
             background: var(--mole-brown);
-            border-radius: 45px 45px 10px 10px;
+            border-radius: 50px 50px 15px 15px;
             position: absolute;
-            bottom: -100px;
+            bottom: -110px;
             left: 15px;
-            transition: bottom 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+            transition: bottom 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28);
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-top: 15px;
+            padding-top: 20px;
+        }
+
+        /* 星星髮夾 */
+        .star-clip {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 20px;
+            height: 20px;
+            background: var(--magic-gold);
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            transform: rotate(20deg);
+            box-shadow: 0 0 5px rgba(255, 215, 0, 0.8);
+            z-index: 10;
         }
 
         .mole.up {
@@ -133,22 +165,22 @@
 
         .mole-eyes {
             display: flex;
-            gap: 15px;
-            margin-bottom: 5px;
+            gap: 18px;
+            margin-bottom: 8px;
         }
 
         .mole-eye {
-            width: 12px;
-            height: 12px;
-            background: #333;
+            width: 14px;
+            height: 14px;
+            background: #222;
             border-radius: 50%;
             position: relative;
         }
 
         .mole-eye::after {
             content: '';
-            width: 4px;
-            height: 4px;
+            width: 5px;
+            height: 5px;
             background: #fff;
             border-radius: 50%;
             position: absolute;
@@ -158,69 +190,82 @@
 
         .mole-blush {
             display: flex;
-            gap: 40px;
-            margin-top: -8px;
+            gap: 45px;
+            margin-top: -10px;
         }
 
         .blush {
-            width: 15px;
-            height: 8px;
-            background: #ff9999;
+            width: 18px;
+            height: 10px;
+            background: #ff80ab;
             border-radius: 50%;
-            opacity: 0.6;
+            opacity: 0.7;
         }
 
         .mole-nose {
-            width: 10px;
-            height: 6px;
-            background: #5d4037;
+            width: 12px;
+            height: 8px;
+            background: #4e342e;
             border-radius: 50%;
         }
 
-        /* 魔法打擊特效 */
+        /* 魔法打擊特效：粉色星星與愛心 */
         .particle {
             position: fixed;
             pointer-events: none;
-            background: var(--pink-primary);
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
             z-index: 1001;
-            animation: explode 0.6s ease-out forwards;
+            animation: explode 0.7s ease-out forwards;
+        }
+
+        .star-particle {
+            background: var(--magic-star);
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            width: 15px;
+            height: 15px;
+        }
+
+        .heart-particle {
+            background: #ff4081;
+            width: 12px;
+            height: 12px;
+            clip-path: path('M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z');
         }
 
         @keyframes explode {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(0.1) translate(var(--tx), var(--ty)); opacity: 0; }
+            0% { transform: scale(0) rotate(0deg); opacity: 1; }
+            100% { transform: scale(1.5) translate(var(--tx), var(--ty)) rotate(360deg); opacity: 0; }
         }
 
         .start-btn {
-            background: var(--pink-primary);
+            background: linear-gradient(45deg, #ff4081, #ff85a2);
             color: white;
             border: none;
-            padding: 15px 40px;
-            font-size: 1.5rem;
-            border-radius: 30px;
-            cursor: none; /* 保持隱藏游標 */
-            margin-top: 20px;
-            box-shadow: 0 5px 15px rgba(255, 133, 162, 0.4);
-            transition: transform 0.2s;
+            padding: 18px 50px;
+            font-size: 1.8rem;
+            border-radius: 40px;
+            cursor: none;
+            margin-top: 30px;
+            box-shadow: 0 8px 20px rgba(255, 64, 129, 0.4);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-weight: bold;
+            border: 3px solid #fff;
         }
 
         .start-btn:hover {
-            transform: scale(1.1);
-            background: #ff6b8e;
+            transform: scale(1.1) rotate(2deg);
+            box-shadow: 0 12px 25px rgba(255, 64, 129, 0.6);
         }
 
         .game-over {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 240, 243, 0.95);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             z-index: 100;
+            backdrop-filter: blur(5px);
         }
     </style>
 </head>
@@ -255,25 +300,28 @@
                 <div 
                     className="magic-wand" 
                     style={{ 
-                        left: pos.x, 
-                        top: pos.y, 
-                        transform: `translate(-10px, -10px) rotate(${isClicking ? '-20deg' : '0deg'}) scale(${isClicking ? 0.9 : 1})`
+                        left: pos.x - 25, 
+                        top: pos.y - 40, 
+                        transform: `rotate(${isClicking ? '-30deg' : '0deg'}) scale(${isClicking ? 0.85 : 1})`
                     }}
                 >
-                    <div className="wand-star"></div>
+                    <div className="wand-moon">
+                        <div className="wand-gem"></div>
+                    </div>
                     <div className="wand-handle"></div>
                 </div>
             );
         };
 
         const ParticleEffect = ({ x, y }) => {
-            return [...Array(8)].map((_, i) => {
-                const tx = (Math.random() - 0.5) * 100;
-                const ty = (Math.random() - 0.5) * 100;
+            return [...Array(12)].map((_, i) => {
+                const tx = (Math.random() - 0.5) * 150;
+                const ty = (Math.random() - 0.5) * 150;
+                const type = Math.random() > 0.5 ? 'star' : 'heart';
                 return (
                     <div 
                         key={i} 
-                        className="particle" 
+                        className={`particle ${type}-particle`}
                         style={{ 
                             left: x, 
                             top: y, 
@@ -289,7 +337,7 @@
             const [score, setScore] = useState(0);
             const [timeLeft, setTimeLeft] = useState(30);
             const [activeMole, setActiveMole] = useState(null);
-            const [gameState, setGameState] = useState('IDLE'); // IDLE, PLAYING, ENDED
+            const [gameState, setGameState] = useState('IDLE');
             const [particles, setParticles] = useState([]);
             
             const timerRef = useRef(null);
@@ -305,14 +353,12 @@
             const showMole = () => {
                 const randomHole = Math.floor(Math.random() * 9);
                 setActiveMole(randomHole);
-                
-                // 難度曲線：地鼠停留時間
-                const delay = Math.max(500, 1000 - (score * 20));
+                const delay = Math.max(400, 1100 - (score * 15));
                 
                 moleTimerRef.current = setTimeout(() => {
                     setActiveMole(null);
                     if (gameState !== 'ENDED') {
-                        setTimeout(showMole, Math.random() * 500 + 200);
+                        setTimeout(showMole, Math.random() * 400 + 150);
                     }
                 }, delay);
             };
@@ -343,15 +389,13 @@
                     setActiveMole(null);
                     clearTimeout(moleTimerRef.current);
                     
-                    // 特效
                     const newParticles = { x: e.clientX, y: e.clientY, id: Date.now() };
                     setParticles(p => [...p, newParticles]);
                     setTimeout(() => {
                         setParticles(p => p.filter(item => item.id !== newParticles.id));
-                    }, 600);
+                    }, 700);
 
-                    // 下一隻地鼠出現快一點
-                    setTimeout(showMole, 100);
+                    setTimeout(showMole, 50);
                 }
             };
 
@@ -361,8 +405,8 @@
                     {particles.map(p => <ParticleEffect key={p.id} x={p.x} y={p.y} />)}
                     
                     <div className="game-header">
-                        <h1 style={{fontSize: '3rem', margin: '0'}}>魔法打地鼠 ✨</h1>
-                        <div className="score-board">分數: {score}</div>
+                        <h1 style={{fontSize: '3.5rem', margin: '0', letterSpacing: '2px'}}>Moon Prism Power! ✨</h1>
+                        <div className="score-board">★ 分數: {score} ★</div>
                         <div className="timer">剩餘時間: {timeLeft}s</div>
                     </div>
 
@@ -373,6 +417,7 @@
                                     className={`mole ${activeMole === i ? 'up' : ''}`}
                                     onMouseDown={(e) => handleWhack(i, e)}
                                 >
+                                    <div className="star-clip"></div>
                                     <div className="mole-eyes">
                                         <div className="mole-eye"></div>
                                         <div className="mole-eye"></div>
@@ -389,16 +434,16 @@
 
                     {gameState === 'IDLE' && (
                         <div className="game-over">
-                            <h2 style={{color: 'var(--pink-primary)', fontSize: '2rem'}}>準備好要施展魔法了嗎？</h2>
-                            <button className="start-btn" onClick={startGame}>開始遊戲</button>
+                            <h2 style={{color: '#ff4081', fontSize: '2.5rem'}}>代替月亮懲罰地鼠！</h2>
+                            <button className="start-btn" onClick={startGame}>變身！開始遊戲</button>
                         </div>
                     )}
 
                     {gameState === 'ENDED' && (
                         <div className="game-over">
-                            <h1 style={{color: 'var(--pink-primary)', fontSize: '4rem'}}>時間到！</h1>
-                            <div className="score-board" style={{fontSize: '3rem'}}>最終得分: {score}</div>
-                            <button className="start-btn" onClick={startGame}>再玩一次</button>
+                            <h1 style={{color: '#ff4081', fontSize: '4.5rem'}}>任務完成！</h1>
+                            <div className="score-board" style={{fontSize: '3.5rem', marginBottom: '20px'}}>魔法積分: {score}</div>
+                            <button className="start-btn" onClick={startGame}>再次施展魔法</button>
                         </div>
                     )}
                 </>
